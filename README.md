@@ -4,6 +4,8 @@
 
 A Chrome extension that works across **all major AI chat platforms**. It automatically extracts and lists your prompts in chronological order (#1, #2, #3...), letting you instantly jump to any part of your conversations.
 
+![AI Chat Navigator Demo](assets/demo.png)
+
 ## What It Does
 
 - **Universal Support** - Works on ChatGPT, Claude, Gemini, Perplexity, and more
