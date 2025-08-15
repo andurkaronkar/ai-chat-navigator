@@ -317,13 +317,11 @@
               
               if (!seenPrompts.has(key) && !isLikelyResponse(text)) {
                 seenPrompts.add(key);
-                const confidence = calculateUserPromptConfidence(fullMatch, element);
                 prompts.push({
                   text: fullMatch,
                   element: element,
                   source: element.tagName.toLowerCase(),
-                  confidence: confidence,
-                  pattern: index
+                  index: prompts.length
                 });
                 promptElements.push(element);
                 isUserPrompt = true;
@@ -338,13 +336,11 @@
             const key = text.toLowerCase();
             if (!seenPrompts.has(key) && !isLikelyResponse(text)) {
               seenPrompts.add(key);
-              const confidence = calculateUserPromptConfidence(text, element) + 3; // Bonus for input fields
               prompts.push({
                 text: text,
                 element: element,
                 source: element.tagName.toLowerCase(),
-                confidence: confidence,
-                pattern: 'input-field'
+                index: prompts.length
               });
               promptElements.push(element);
               console.log('Found input field prompt:', text.substring(0, 50));
@@ -361,8 +357,8 @@
       console.log('Sample prompts found:', prompts.slice(0, 3).map(p => p.text.substring(0, 50)));
     }
 
-    // Sort by confidence score
-    return prompts.sort((a, b) => b.confidence - a.confidence).slice(0, 20); // Limit to top 20
+    // Sort by DOM position (chronological order)
+    return prompts.sort((a, b) => comparePosition(a.element, b.element)).slice(0, 20);
   }
   
   // Detect which chat platform we're on
@@ -452,7 +448,7 @@
               text: text,
               element: element,
               source: platform,
-              confidence: calculateChatPromptConfidence(text, element, platform)
+              index: prompts.length // Track order of appearance
             });
             console.log(`Found ${platform} prompt:`, text.substring(0, 60) + '...');
           }
@@ -464,15 +460,10 @@
     
     console.log(`Total elements found: ${foundElements}, prompts extracted: ${prompts.length}`);
     
-    // Sort by confidence and position in page (newer messages first)
+    // Sort by DOM position (chronological order - first to last)
     return prompts.sort((a, b) => {
-      // First sort by confidence
-      if (b.confidence !== a.confidence) {
-        return b.confidence - a.confidence;
-      }
-      // Then by position (later in DOM = newer)
-      return comparePosition(b.element, a.element);
-    }).slice(0, 15);
+      return comparePosition(a.element, b.element);
+    }).slice(0, 20); // Show up to 20 prompts
   }
   
   // Get platform-specific selectors
@@ -799,10 +790,10 @@
 
     const promptsHTML = prompts.map((prompt, index) => `
       <div class="prompt-extractor-prompt-item" data-index="${index}">
+        <div class="prompt-extractor-prompt-number">#${index + 1}</div>
         <div class="prompt-extractor-prompt-text">${escapeHtml(prompt.text)}</div>
         <div class="prompt-extractor-prompt-meta">
           <span class="source">From: ${prompt.source}</span>
-          <span class="confidence">Score: ${prompt.confidence}</span>
         </div>
       </div>
     `).join('');
