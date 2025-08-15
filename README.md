@@ -213,7 +213,7 @@ universal-ai-chat-navigator/
 ├── 📖 README.md          # You're reading this!
 └── 📜 LICENSE            # MIT License
 ```
-```
+
 
 ## 🐛 Troubleshooting
 
@@ -241,11 +241,10 @@ universal-ai-chat-navigator/
 
 ### Debug Mode
 Open browser console (F12) to see detailed logs:
-```
+
 Detected platform: chatgpt
 chatgpt detected - using specialized extraction
 Found 3 prompts: How do I..., Can you explain..., What is...
-```
 
 ## 🤝 Contributing
 
@@ -272,6 +271,6 @@ I built this because existing solutions didn't meet my standards for clean, effi
 
 Give it a try and let me know what you think! 🚀
 
----
+
 
 *Made with ❤️ for better AI conversations everywhere*
