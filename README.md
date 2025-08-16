@@ -1,4 +1,4 @@
-# AI Chat Navigator
+# AI Prompt Navigator
 
 > **Why I Built This**: I found similar extensions online, but they didn't work the way I wanted. Most were clunky, had poor detection, or cluttered the interface. So I decided to create my own clean, efficient solution.
 

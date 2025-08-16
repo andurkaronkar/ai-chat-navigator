@@ -240,7 +240,7 @@
     const seenPrompts = new Set();
     const promptElements = [];
     
-    console.log('Prompt Extractor: Starting scan...');
+    console.log('AI Prompt Navigator: Starting scan...');
     console.log('Current URL:', window.location.href);
     
     // Detect which chat platform we're on
@@ -352,7 +352,7 @@
       }
     });
     
-    console.log(`Prompt Extractor: Scanned ${totalElementsScanned} elements, found ${textsFound} texts, extracted ${prompts.length} prompts`);
+    console.log(`AI Prompt Navigator: Scanned ${totalElementsScanned} elements, found ${textsFound} texts, extracted ${prompts.length} prompts`);
     if (prompts.length > 0) {
       console.log('Sample prompts found:', prompts.slice(0, 3).map(p => p.text.substring(0, 50)));
     }

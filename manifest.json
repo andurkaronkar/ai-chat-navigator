@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Prompt Extractor",
+  "name": "AI Prompt Navigator",
   "version": "1.0.0",
   "description": "Extract and display prompts from webpages with a floating glassmorphism dialog",
   "permissions": [
